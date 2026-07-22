@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer base {
+  body {
+    @apply bg-primary text-white antialiased font-sans m-0 overflow-x-hidden;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-secondary/40 backdrop-blur-xl border border-white/10 shadow-2xl rounded-2xl;
+  }
+  .input-glow:focus-within {
+    @apply ring-2 ring-accent-blue/50 border-accent-blue/50;
+  }
+}
