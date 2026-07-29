@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Matching - ResumeAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .match-score-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1e40af 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin-bottom: 2rem;
+        }
+        .match-text h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .match-text p {
+            opacity: 0.9;
+        }
+        .match-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 8px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .tag {
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .tag-match { background-color: #f0fdf4; color: var(--success); border: 1px solid #bbf7d0; }
+        .tag-miss  { background-color: #fef2f2; color: var(--error);   border: 1px solid #fecaca; }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo">
+                    <i class="fa-solid fa-file-signature"></i>
+                    ResumeAI
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+                <a href="upload.html" class="nav-item">
+                    <i class="fa-solid fa-upload"></i>
+                    Resume Analysis
+                </a>
+                <a href="resume-builder.html" class="nav-item">
+                    <i class="fa-solid fa-pen-nib"></i>
+                    Resume Builder
+                </a>
+                <a href="interview.html" class="nav-item">
+                    <i class="fa-solid fa-comments"></i>
+                    Interview Prep
+                </a>
+                <a href="job-matching.html" class="nav-item active">
+                    <i class="fa-solid fa-handshake"></i>
+                    Job Matching
+                </a>
+                <a href="applied-jobs.html" class="nav-item">
+                    <i class="fa-solid fa-briefcase"></i>
+                    Applied Jobs
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="dashboard-header">
+                <div>
+                    <h1>Job Matching</h1>
+                    <p style="color: var(--text-light);">See how well your resume matches a specific job description.</p>
+                </div>
+            </div>
+
+            <div id="alert-container"></div>
+
+            <div class="card mb-4" id="setup-section">
+                <form id="match-form">
+                    <div class="form-group">
+                        <label for="resume-select" class="form-label">Select Resume</label>
+                        <select id="resume-select" class="form-control" required>
+                            <option value="" disabled selected>Loading resumes…</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="job-description" class="form-label">Job Description</label>
+                        <textarea id="job-description" class="form-control" rows="6" required placeholder="Paste the job description here..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="btn-match">Analyze Match</button>
+                </form>
+            </div>
+
+            <div id="loading-state" style="display: none; text-align: center; padding: 4rem;">
+                <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <p>Matching your resume with the job...</p>
+            </div>
+
+            <div id="results-section" style="display: none;">
+                <div class="match-score-container">
+                    <div class="match-text">
+                        <h2 id="match-status">Strong Match!</h2>
+                        <p id="match-recommendation">You have most of the required skills. We recommend applying.</p>
+                    </div>
+                    <div class="match-circle">
+                        <span id="match-score">0</span>%
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div class="card">
+                        <h3><i class="fa-solid fa-circle-check" style="color: var(--success); margin-right: 0.5rem;"></i> Matching Skills</h3>
+                        <div class="tags" id="matching-skills" style="margin-top: 1rem;"></div>
+                    </div>
+
+                    <div class="card">
+                        <h3><i class="fa-solid fa-circle-xmark" style="color: var(--error); margin-right: 0.5rem;"></i> Missing Skills</h3>
+                        <div class="tags" id="missing-skills" style="margin-top: 1rem;"></div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="card">
+                        <h3><i class="fa-solid fa-arrow-trend-up" style="color: var(--primary-color); margin-right: 0.5rem;"></i> Strengths for this Role</h3>
+                        <ul id="match-strengths" style="margin-top: 1rem; padding-left: 1.5rem; color: var(--text-light); line-height: 1.6;"></ul>
+                    </div>
+
+                    <div class="card">
+                        <h3><i class="fa-solid fa-arrow-trend-down" style="color: #f59e0b; margin-right: 0.5rem;"></i> Weaknesses for this Role</h3>
+                        <ul id="match-weaknesses" style="margin-top: 1rem; padding-left: 1.5rem; color: var(--text-light); line-height: 1.6;"></ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/job-matching.js"></script>
+</body>
+</html>

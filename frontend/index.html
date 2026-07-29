@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeAI - Build a Resume That Gets You Noticed</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Landing Page Specific Styles */
+        .hero {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .features {
+            padding: 5rem 0;
+            background-color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+        }
+
+        .how-it-works {
+            padding: 5rem 0;
+            background-color: var(--secondary-color);
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 3rem;
+            height: 3rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .cta {
+            padding: 5rem 0;
+            text-align: center;
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-file-signature"></i>
+                ResumeAI
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="#features">Features</a>
+                <a href="pages/resume-builder.html">Resume Builder</a>
+                <a href="#about">About</a>
+            </div>
+            <div class="nav-actions" id="nav-actions">
+                <a href="pages/login.html" class="btn btn-outline">Login</a>
+                <a href="pages/register.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Build a Resume That Gets You Noticed.</h1>
+            <p>Analyze your resume, improve your ATS score, prepare for interviews, match with jobs, and build professional resumes using AI.</p>
+            <div class="hero-actions">
+                <a href="pages/upload.html" class="btn btn-primary btn-lg">Analyze My Resume</a>
+                <a href="pages/resume-builder.html" class="btn btn-outline btn-lg">Build My Resume</a>
+            </div>
+            <!-- Mockup image placeholder -->
+            <div class="mt-4">
+                <i class="fa-solid fa-laptop-code" style="font-size: 5rem; color: var(--text-light); opacity: 0.5;"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Everything You Need to Land the Job</h2>
+            <div class="features-grid">
+                <div class="card feature-card">
+                    <i class="fa-solid fa-magnifying-glass-chart feature-icon"></i>
+                    <h3>AI Resume Analysis</h3>
+                    <p>Get instant feedback on your resume's strengths and weaknesses using advanced AI.</p>
+                </div>
+                <div class="card feature-card">
+                    <i class="fa-solid fa-bullseye feature-icon"></i>
+                    <h3>ATS Score</h3>
+                    <p>Ensure your resume passes Applicant Tracking Systems with our comprehensive scoring.</p>
+                </div>
+                <div class="card feature-card">
+                    <i class="fa-solid fa-user-tie feature-icon"></i>
+                    <h3>AI Interview Preparation</h3>
+                    <p>Practice with personalized interview questions based on your resume and job description.</p>
+                </div>
+                <div class="card feature-card">
+                    <i class="fa-solid fa-handshake feature-icon"></i>
+                    <h3>Job Matching</h3>
+                    <p>See how well your resume matches specific job requirements before you apply.</p>
+                </div>
+                <div class="card feature-card">
+                    <i class="fa-solid fa-pen-to-square feature-icon"></i>
+                    <h3>Resume Builder</h3>
+                    <p>Create stunning resumes manually or let our AI generate one for you instantly.</p>
+                </div>
+                <div class="card feature-card">
+                    <i class="fa-solid fa-list-check feature-icon"></i>
+                    <h3>Applied Job Tracker</h3>
+                    <p>Keep track of all your applications, statuses, and notes in one organized place.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works" id="about">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Upload Resume</h3>
+                    <p class="mt-1">Upload your existing PDF or DOCX resume to our platform.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Analyze with AI</h3>
+                    <p class="mt-1">Our AI scans your resume and provides actionable feedback.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Improve Resume</h3>
+                    <p class="mt-1">Use the feedback or our builder to create a winning resume.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Apply & Track</h3>
+                    <p class="mt-1">Apply with confidence and track your progress in the dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to build your career?</h2>
+            <a href="pages/register.html" class="btn btn-outline" style="background-color: white; color: var(--primary-color);">Get Started Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 ResumeAI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Simple script to update navbar if user is already logged in
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('access_token');
+            const navActions = document.getElementById('nav-actions');
+            
+            if (token) {
+                navActions.innerHTML = `
+                    <a href="pages/dashboard.html" class="btn btn-primary">Go to Dashboard</a>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

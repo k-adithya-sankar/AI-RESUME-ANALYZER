@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder - ResumeAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .builder-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .builder-card {
+            background-color: var(--white);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .builder-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+        }
+
+        .builder-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .builder-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .builder-card p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo">
+                    <i class="fa-solid fa-file-signature"></i>
+                    ResumeAI
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+                <a href="upload.html" class="nav-item">
+                    <i class="fa-solid fa-upload"></i>
+                    Resume Analysis
+                </a>
+                <a href="resume-builder.html" class="nav-item active">
+                    <i class="fa-solid fa-pen-nib"></i>
+                    Resume Builder
+                </a>
+                <a href="interview.html" class="nav-item">
+                    <i class="fa-solid fa-comments"></i>
+                    Interview Prep
+                </a>
+                <a href="job-matching.html" class="nav-item">
+                    <i class="fa-solid fa-handshake"></i>
+                    Job Matching
+                </a>
+                <a href="applied-jobs.html" class="nav-item">
+                    <i class="fa-solid fa-briefcase"></i>
+                    Applied Jobs
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="dashboard-header" style="justify-content: center; text-align: center;">
+                <div>
+                    <h1>Choose How to Build Your Resume</h1>
+                    <p style="color: var(--text-light); margin-top: 0.5rem;">Select an option to get started.</p>
+                </div>
+            </div>
+
+            <div class="builder-options">
+                <div class="builder-card" onclick="window.location.href='manual-builder.html'">
+                    <i class="fa-solid fa-pen-to-square builder-icon"></i>
+                    <h2>Manual Builder</h2>
+                    <p>Select a template and fill in your details manually. Great for precise control over every section.</p>
+                    <button class="btn btn-primary">Start Manual Builder</button>
+                </div>
+                
+                <div class="builder-card" onclick="window.location.href='ai-builder.html'">
+                    <i class="fa-solid fa-wand-magic-sparkles builder-icon"></i>
+                    <h2>AI Builder</h2>
+                    <p>Give instructions to our AI, and it will generate a tailored professional resume for you instantly.</p>
+                    <button class="btn btn-primary">Start AI Builder</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', requireAuth);
+    </script>
+</body>
+</html>

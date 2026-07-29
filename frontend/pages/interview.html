@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Preparation - ResumeAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .question-card {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        .question-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .question-badge {
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.8rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .answer-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border-color);
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo">
+                    <i class="fa-solid fa-file-signature"></i>
+                    ResumeAI
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+                <a href="upload.html" class="nav-item">
+                    <i class="fa-solid fa-upload"></i>
+                    Resume Analysis
+                </a>
+                <a href="resume-builder.html" class="nav-item">
+                    <i class="fa-solid fa-pen-nib"></i>
+                    Resume Builder
+                </a>
+                <a href="interview.html" class="nav-item active">
+                    <i class="fa-solid fa-comments"></i>
+                    Interview Prep
+                </a>
+                <a href="job-matching.html" class="nav-item">
+                    <i class="fa-solid fa-handshake"></i>
+                    Job Matching
+                </a>
+                <a href="applied-jobs.html" class="nav-item">
+                    <i class="fa-solid fa-briefcase"></i>
+                    Applied Jobs
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="dashboard-header">
+                <div>
+                    <h1>Interview Preparation</h1>
+                    <p style="color: var(--text-light);">Generate AI interview questions based on your resume and a job description.</p>
+                </div>
+            </div>
+
+            <div id="alert-container"></div>
+
+            <div class="card mb-4" id="setup-section">
+                <form id="interview-form">
+                    <div class="form-group">
+                        <label for="resume-select" class="form-label">Select Resume</label>
+                        <select id="resume-select" class="form-control" required>
+                            <option value="" disabled selected>Select a resume</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="job-description" class="form-label">Job Description</label>
+                        <textarea id="job-description" class="form-control" rows="5" required placeholder="Paste the job description here..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="num-questions" class="form-label">Number of Questions</label>
+                                                <input type="number" id="num-questions" class="form-control" min="1" max="10" value="5" required style="max-width: 150px;">
+                    </div>
+
+                    <button type="button" class="btn btn-primary" id="btn-generate">Generate Questions</button>
+                </form>
+            </div>
+
+            <div id="loading-state" style="display: none; text-align: center; padding: 4rem;">
+                <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <p>Generating personalized interview questions...</p>
+            </div>
+
+            <div id="results-section" style="display: none;">
+                <div class="dashboard-header" style="margin-bottom: 1rem;">
+                    <h2>Your Interview Questions</h2>
+                    <button class="btn btn-outline" onclick="window.print()">Print Questions</button>
+                </div>
+                
+                <div id="questions-list">
+                    <!-- Questions injected here via JS -->
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/interview.js"></script>
+</body>
+</html>

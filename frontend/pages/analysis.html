@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analysis - ResumeAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <style>
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 1.5rem;
+        }
+
+        .score-card {
+            text-align: center;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 10px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        /* Hacky visual circle colors using border colors */
+        .score-high { border-color: var(--success); }
+        .score-medium { border-color: #f59e0b; }
+        .score-low { border-color: var(--error); }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .tag {
+            background-color: var(--secondary-color);
+            color: var(--text-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .tag.missing {
+            background-color: #fef2f2;
+            color: var(--error);
+            border: 1px solid #fecaca;
+        }
+
+        .tag.matched {
+            background-color: #f0fdf4;
+            color: var(--success);
+            border: 1px solid #bbf7d0;
+        }
+
+        .feedback-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feedback-list li {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .feedback-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feedback-icon {
+            margin-top: 0.25rem;
+        }
+
+        .strength-icon { color: var(--success); }
+        .weakness-icon { color: var(--error); }
+        .suggestion-icon { color: var(--primary-color); }
+
+        @media (max-width: 900px) {
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo">
+                    <i class="fa-solid fa-file-signature"></i>
+                    ResumeAI
+                </a>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+                <a href="upload.html" class="nav-item active">
+                    <i class="fa-solid fa-upload"></i>
+                    Resume Analysis
+                </a>
+                <!-- Other links -->
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="dashboard-header">
+                <div>
+                    <h1>Resume Analysis Result</h1>
+                    <p style="color: var(--text-light);">Detailed AI feedback on your uploaded resume.</p>
+                </div>
+                <div>
+                    <a href="upload.html" class="btn btn-outline">Analyze Another</a>
+                </div>
+            </div>
+
+            <div id="alert-container"></div>
+            
+            <div id="loading-state" style="text-align: center; padding: 4rem;">
+                <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <p>Analyzing your resume...</p>
+            </div>
+
+            <div id="analysis-content" style="display: none;">
+                <div class="analysis-grid mb-4">
+                    <!-- Left Column -->
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div class="card score-card">
+                            <div class="score-circle" id="ats-score-circle">
+                                <span id="ats-score">0</span>%
+                            </div>
+                            <h3>Overall ATS Score</h3>
+                            <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 0.5rem;" id="score-text">
+                                Your resume is well-structured but could use some improvement in keyword optimization.
+                            </p>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="mb-2"><i class="fa-solid fa-list-check" style="margin-right:0.5rem;"></i> Skills Found</h3>
+                            <div class="tags" id="skills-list">
+                                <!-- Tags inserted via JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div class="card">
+                            <h3 class="mb-2"><i class="fa-solid fa-file-lines" style="margin-right:0.5rem;"></i> Overall Summary</h3>
+                            <p id="overall-summary" style="color: var(--text-light); line-height: 1.6;">
+                                <!-- Summary inserted via JS -->
+                            </p>
+                        </div>
+
+                        <div class="card" style="padding: 0;">
+                            <div style="padding: 1.5rem; border-bottom: 1px solid var(--border-color);">
+                                <h3>Detailed Feedback</h3>
+                            </div>
+                            <ul class="feedback-list" id="feedback-list">
+                                <!-- Feedback items inserted via JS -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/analysis.js"></script>
+</body>
+</html>
